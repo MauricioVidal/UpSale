@@ -5,7 +5,13 @@
  */
 package br.com.upsale;
 
+import br.com.upsale.bd.conexao.MysqlConnection;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -51,6 +57,19 @@ public class WSUpSale {
     @PUT
     @Consumes("application/json")
     public String putJson(String content) {
-        return content;
+        try {
+            Connection con = new MysqlConnection().getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("Select * from empregado");
+            content = "";
+            while(rs.next()){
+                content += rs.getString(2)+"\n";
+            }
+            con.close();
+            return content;
+        } catch (SQLException ex) {
+            Logger.getLogger(WSUpSale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Falhou";
     }
 }
