@@ -5,6 +5,7 @@
  */
 package br.com.upsale;
 
+import java.sql.Connection;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -49,6 +50,7 @@ public class WSUpSale {
      */
     @PUT
     @Consumes("application/json")
-    public void putJson(String content) {
+    public String putJson(String content) {
+        return content;
     }
 }
