@@ -57,19 +57,6 @@ public class WSUpSale {
     @PUT
     @Consumes("application/json")
     public String putJson(String content) {
-        try {
-            Connection con = new MysqlConnection().getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from empregado");
-            content = "";
-            while(rs.next()){
-                content += rs.getString(2)+"\n";
-            }
-            con.close();
-            return content;
-        } catch (SQLException ex) {
-            Logger.getLogger(WSUpSale.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "Falhou";
+        return content;
     }
 }
