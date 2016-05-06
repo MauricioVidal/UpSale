@@ -14,5 +14,8 @@ import java.sql.Connection;
 public interface ConnectionFactory {
     
     Connection getConnection();
-    
+    String getSQLInsert();
+    String getSQLSelect();
+    String getSQLDelete();
+    String getSQLUpdate();
 }
