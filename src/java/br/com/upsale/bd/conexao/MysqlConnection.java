@@ -37,5 +37,25 @@ public class MysqlConnection implements ConnectionFactory {
         return null;
     }
 
+    @Override
+    public String getSQLInsert() {
+        return "Insert into %s(%s) values(%s)";
+    }
+
+    @Override
+    public String getSQLSelect() {
+        return "Select * from %s";
+    }
+
+    @Override
+    public String getSQLDelete() {
+        return "Delete from %s where %s";
+    }
+
+    @Override
+    public String getSQLUpdate() {
+        return "Update %s set %s where %s";
+    }
+
 
 }

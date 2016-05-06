@@ -12,6 +12,7 @@ package br.com.upsale.model;
 public class Usuario {
     private long id;
     private String nome;
+    private String login;
     private String senha;
 
     public long getId() {
@@ -30,6 +31,14 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getSenha() {
         return senha;
     }
@@ -37,7 +46,5 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
-    
+
 }

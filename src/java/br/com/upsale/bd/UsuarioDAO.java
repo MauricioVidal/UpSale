@@ -7,6 +7,9 @@ package br.com.upsale.bd;
 
 import br.com.upsale.model.Usuario;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,28 +18,68 @@ import java.util.List;
  * @author Mauricio R. Vidal
  */
 public class UsuarioDAO implements DAO<Usuario>{
-
-    @Override
-    public List<Usuario> getLista() throws Exception {
-        List<Usuario> usuarios = new ArrayList<>();
-        String sql = "Select * from usuario";
-        //
-        return null;
+    
+    public List<Usuario> getLista() throws Exception{
+        List lista = new ArrayList();
+        String sql = String.format(connectionFactory.getSQLSelect(), "usuario");
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            Usuario u = new Usuario();
+            u.setId(rs.getLong("id"));
+            u.setNome(rs.getString("nome"));
+            u.setLogin(rs.getString("login"));
+            u.setSenha(rs.getString("senha"));
+            lista.add(u);
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
     }
 
     @Override
-    public boolean atualizar(Usuario o) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean atualizar(Usuario o) throws Exception{
+        String sql = String.format(connectionFactory.getSQLUpdate(), "usuario",
+                "login, nome, senha", "?,?,?", "id = ?");
+        Connection con = connectionFactory.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, o.getLogin());
+        ps.setString(2, o.getNome());
+        ps.setString(3, o.getSenha());
+        ps.setLong(4, o.getId());
+        boolean rs = ps.executeUpdate() == 1;
+        ps.close();
+        con.close();
+        return rs;
     }
 
     @Override
-    public boolean inserir(Usuario o) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean inserir(Usuario o) throws Exception{
+        String sql = String.format(connectionFactory.getSQLInsert(), "usuario", 
+                "login, nome, senha", "?,?,?");
+        Connection con = connectionFactory.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, o.getLogin());
+        ps.setString(2, o.getNome());
+        ps.setString(3, o.getSenha());
+        boolean rs = ps.executeUpdate()==1;
+        ps.close();
+        con.close();
+        return rs;
     }
 
     @Override
-    public boolean remover(Usuario o) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean remover(Usuario o) throws Exception{
+        String sql = String.format(connectionFactory.getSQLDelete(), "usuario", "id = ?");
+        Connection con = connectionFactory.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setLong(1, o.getId());
+        boolean rs = ps.executeUpdate() == 1;
+        ps.close();
+        con.close();
+        return rs;
     }
     
 }
