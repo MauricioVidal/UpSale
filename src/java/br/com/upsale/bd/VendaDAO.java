@@ -5,33 +5,32 @@
  */
 package br.com.upsale.bd;
 
-import br.com.upsale.model.Categoria;
+import br.com.upsale.model.Venda;
 import java.util.List;
 
 /**
  *
- * @author a14020
+ * @author Mauricio R. Vidal
  */
-public class CategoriaDAO implements DAO<Categoria>{
+public class VendaDAO implements DAO<Venda>{
 
-    
     @Override
-    public List<Categoria> getLista() throws Exception {
+    public List<Venda> getLista() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Categoria o) throws Exception {
+    public boolean atualizar(Venda o) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean inserir(Categoria o) throws Exception {
+    public boolean inserir(Venda o) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Categoria o) throws Exception {
+    public boolean remover(Venda o) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

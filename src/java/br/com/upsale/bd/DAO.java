@@ -12,8 +12,8 @@ import java.util.List;
  * @author Mauricio R. Vidal
  */
 public interface DAO<T> {
-    List<T> getLista();
-    boolean atualizar(T o);
-    boolean inserir(T o);
-    boolean remover(T o);
+    List<T> getLista()throws Exception ;
+    boolean atualizar(T o)throws Exception ;
+    boolean inserir(T o)throws Exception ;
+    boolean remover(T o)throws Exception ;
 }
