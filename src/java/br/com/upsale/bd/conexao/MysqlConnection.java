@@ -31,8 +31,10 @@ public class MysqlConnection implements ConnectionFactory {
             Connection con = DriverManager.getConnection("jdbc:mysql://"+HOST_BD+":"+ PORT_BD+"/"+BD, USER_BD, SENHA); //NOI18N
             System.out.println("Conectado com Sucesso!!"); //NOI18N
             return con;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MysqlConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

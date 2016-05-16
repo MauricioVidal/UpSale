@@ -5,7 +5,6 @@
  */
 package br.com.upsale.bd;
 
-import br.com.upsale.model.Categoria;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public abstract class CreatorDAO {
     public static final Class<ItemEstoqueDAO> ITEMESTOQUE = ItemEstoqueDAO.class;
     public static final Class<ProdutoDAO> PRODUTO = ProdutoDAO.class;
     public static final Class<UsuarioDAO> USUARIO = UsuarioDAO.class;
-    private static Map<Class, DAO> map = new HashMap<>();
+    private static Map<Class, DAO> map = new HashMap();
     private CreatorDAO() {
     }
     public static DAO create(Class<? extends DAO> c) throws Exception{

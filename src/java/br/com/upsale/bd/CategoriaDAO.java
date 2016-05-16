@@ -22,7 +22,7 @@ public class CategoriaDAO implements DAO<Categoria> {
 
     @Override
     public List<Categoria> getLista() throws Exception {
-        List<Categoria> lista = new ArrayList<>();
+        List<Categoria> lista = new ArrayList();
         String sql = String.format(connectionFactory.getSQLSelect(), "categoria");
         Connection con = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
