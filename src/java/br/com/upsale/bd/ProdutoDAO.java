@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.upsale.bd;
 
 import static br.com.upsale.bd.DAO.connectionFactory;
-import br.com.upsale.model.Estoque;
 import br.com.upsale.model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Mauricio R. Vidal
- */
 public class ProdutoDAO implements DAO<Produto> {
 
     @Override
