@@ -6,7 +6,6 @@
 package br.com.upsale.bd;
 
 import static br.com.upsale.bd.DAO.connectionFactory;
-import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.ItemVenda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
     @Override
     public List<ItemVenda> getLista() throws Exception {
         List<ItemVenda> lista = new ArrayList();
-        String sql = String.format(connectionFactory.getSQLSelect(), "itemEstoque");
+        String sql = String.format(connectionFactory.getSQLSelect(), "itemVenda");
         Connection con = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
@@ -58,7 +57,7 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
 
     @Override
     public boolean inserir(ItemVenda o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLInsert(), "itemEstoque",
+        String sql = String.format(connectionFactory.getSQLInsert(), "itemVenda",
                 "id_produto, id_venda, quantidade", "?,?,?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
@@ -73,7 +72,7 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
 
     @Override
     public boolean remover(ItemVenda o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLDelete(), "usuario", "id_produto = ? and id_venda = ?");
+        String sql = String.format(connectionFactory.getSQLDelete(), "itemVenda", "id_produto = ? and id_venda = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setLong(1, o.getId_produto());

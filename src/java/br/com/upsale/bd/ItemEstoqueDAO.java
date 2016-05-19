@@ -6,7 +6,6 @@
 package br.com.upsale.bd;
 
 import static br.com.upsale.bd.DAO.connectionFactory;
-import br.com.upsale.model.Categoria;
 import br.com.upsale.model.ItemEstoque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,7 +72,7 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
 
     @Override
     public boolean remover(ItemEstoque o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLDelete(), "usuario", "id_estoque = ? and id_produto = ?");
+        String sql = String.format(connectionFactory.getSQLDelete(), "itemEstoque", "id_estoque = ? and id_produto = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setLong(1, o.getId_estoque());
