@@ -19,9 +19,30 @@ import java.util.List;
  */
 public class UsuarioDAO implements DAO<Usuario>{
     
+    @Override
     public List<Usuario> getLista() throws Exception{
         List lista = new ArrayList();
         String sql = String.format(connectionFactory.getSQLSelect(), "usuario");
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            Usuario u = new Usuario();
+            u.setId(rs.getLong("id"));
+            u.setNome(rs.getString("nome"));
+            u.setLogin(rs.getString("login"));
+            u.setSenha(rs.getString("senha"));
+            lista.add(u);
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
+    
+    public List<Usuario> getLista(String login) throws Exception{
+        List lista = new ArrayList();
+        String sql = String.format(connectionFactory.getSQLSelect(), "usuario where login = '"+login+"'");
         Connection con = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);

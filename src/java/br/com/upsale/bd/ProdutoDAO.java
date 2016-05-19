@@ -10,11 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAO implements DAO<Produto> {
-
+    
     @Override
     public List<Produto> getLista() throws Exception {
+        return null;
+    }
+    
+   
+    public List<Produto> getLista(long user) throws Exception {
         List lista = new ArrayList();
-        String sql = String.format(connectionFactory.getSQLSelect(), "produto");
+        String sql = String.format(connectionFactory.getSQLSelect(), "produto where id_usuario = '"+user+"'");
         Connection con = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);

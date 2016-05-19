@@ -19,6 +19,7 @@ public abstract class CreatorDAO {
     public static final Class<ItemEstoqueDAO> ITEMESTOQUE = ItemEstoqueDAO.class;
     public static final Class<ProdutoDAO> PRODUTO = ProdutoDAO.class;
     public static final Class<UsuarioDAO> USUARIO = UsuarioDAO.class;
+    public static final Class<VendaDAO> VENDA = VendaDAO.class;
     private static Map<Class, DAO> map = new HashMap();
     private CreatorDAO() {
     }

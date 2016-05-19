@@ -23,8 +23,11 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
 
     @Override
     public List<ItemEstoque> getLista() throws Exception {
+        return null;
+    }
+    public List<ItemEstoque> getLista(long id_produto) throws Exception {
         List<ItemEstoque> lista = new ArrayList();
-        String sql = String.format(connectionFactory.getSQLSelect(), "itemEstoque");
+        String sql = String.format(connectionFactory.getSQLSelect(), "itemEstoque where id_produto = '"+ id_produto+"'");
         Connection con = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
