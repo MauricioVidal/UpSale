@@ -79,6 +79,7 @@ public class WSUpSale {
     @POST
     @Path("listar/produto")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String getProdutos(@FormParam("id") long id_user) {
         List<Produto> lista = new LinkedList();
         try {
@@ -104,9 +105,10 @@ public class WSUpSale {
         return GSON.toJson(lista);
     }
 
-    @POST
+    @PUT
     @Path("listar/item_estoque")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String getItemEstoque(@FormParam("id") long id_produto) {
         List<ItemEstoque> lista = new LinkedList();
         try {
@@ -132,10 +134,12 @@ public class WSUpSale {
         return GSON.toJson(lista);
     }
 
-    @POST
+    @PUT
     @Path("listar/item_venda")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String getItemVendas(@FormParam("id") long id_produto) {
+        
         List<ItemVenda> lista = new LinkedList();
         try {
             DAO dao = CreatorDAO.create(CreatorDAO.ITEMVENDA);
@@ -143,15 +147,16 @@ public class WSUpSale {
         } catch (Exception ex) {
             Logger.getLogger(WSUpSale.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(id_produto);
         return GSON.toJson(lista);
     }
 
-    @POST
-    @Path("listar/autenticacao")
+    @PUT
+    @Path("/autenticacao")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String autenticar(@FormParam("login") String login, @FormParam("senha") String senha) {
         try {
-            
             DAO dao = CreatorDAO.create(CreatorDAO.USUARIO);
             List<Usuario> lista = ((UsuarioDAO)dao).getLista(login);
             for (Usuario u : lista) {
