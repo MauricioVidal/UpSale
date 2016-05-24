@@ -76,7 +76,7 @@ public class WSUpSale {
         return GSON.toJson(lista);
     }
 
-    @POST
+    @PUT
     @Path("listar/produto")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
