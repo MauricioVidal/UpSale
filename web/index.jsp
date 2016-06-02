@@ -5,17 +5,23 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="header.html" %>
 <!DOCTYPE html>
-
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="./style/tema.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>UpSale</title>
     </head>
     <body>
-        <div class="container">
-            <h1>Hello World!</h1>
+        <div id="conteudo">
+            <div id="cabecalho">
+                <%@include file="header.jsp" %>
+            </div>
+            <div class="container">
+                <h1>Hello World!</h1>
+            </div>
+
         </div>
+
     </body>
 </html>

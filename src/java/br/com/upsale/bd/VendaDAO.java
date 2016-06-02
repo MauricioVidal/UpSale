@@ -24,7 +24,7 @@ public class VendaDAO implements DAO<Venda>{
         while (rs.next()) {
             Venda v = new Venda();
             v.setId(rs.getLong("id"));
-            v.setData(rs.getDate("data"));
+            v.setData(rs.getDate("data_venda"));
             lista.add(v);
         }
         rs.close();
@@ -35,7 +35,7 @@ public class VendaDAO implements DAO<Venda>{
 
     @Override
     public boolean atualizar(Venda o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLUpdate(), "venda","data", "?", "id = ?");
+        String sql = String.format(connectionFactory.getSQLUpdate(), "venda","data_venda", "?", "id = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, sdf.format(o.getData()));
@@ -49,7 +49,7 @@ public class VendaDAO implements DAO<Venda>{
     @Override
     public boolean inserir(Venda o) throws Exception {
          String sql = String.format(connectionFactory.getSQLInsert(), "venda",
-                "data", "?");
+                "data_venda", "?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, sdf.format(o.getData()));

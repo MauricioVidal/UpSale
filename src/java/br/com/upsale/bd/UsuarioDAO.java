@@ -9,6 +9,7 @@ import br.com.upsale.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,26 @@ public class UsuarioDAO implements DAO<Usuario>{
         ps.close();
         con.close();
         return rs;
+    }
+    
+    public Usuario autenticar(String login, String senha) throws SQLException{
+        String sql = String.format(connectionFactory.getSQLSelect(), String.format("usuario where login = '%s' and senha = '%s'",login, senha));
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        Usuario u = null;
+        while(rs.next()){
+            u = new Usuario();
+            u.setId(rs.getLong("id"));
+            u.setNome(rs.getString("nome"));
+            u.setLogin(rs.getString("login"));
+            u.setSenha(rs.getString("senha"));
+            break;
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return u;
     }
     
 }

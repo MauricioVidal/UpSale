@@ -113,7 +113,7 @@ public class WSUpSale {
         List<ItemEstoque> lista = new LinkedList();
         try {
             DAO dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
-            lista = ((ItemEstoqueDAO) dao).getLista();
+            lista = ((ItemEstoqueDAO) dao).getLista(id_produto);
         } catch (Exception ex) {
             Logger.getLogger(WSUpSale.class.getName()).log(Level.SEVERE, null, ex);
         }
