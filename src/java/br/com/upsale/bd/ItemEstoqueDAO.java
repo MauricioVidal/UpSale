@@ -35,6 +35,7 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
             i.setId_estoque(rs.getLong("id_estoque"));
             i.setId_produto(rs.getLong("id_produto"));
             i.setQuantidade(rs.getInt("quantidade"));
+            i.setQuantidadeMaxima(rs.getInt("quantidade_maxima"));
             lista.add(i);
         }
         rs.close();
@@ -46,12 +47,13 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
     @Override
     public boolean atualizar(ItemEstoque o) throws Exception {
         String sql = String.format(connectionFactory.getSQLUpdate(), "itemEstoque",
-                "quantidade", "?", "id_estoque = ? and id_produto = ?");
+                "quantidade = ?, quantidade_maxima = ?", "id_estoque = ? and id_produto = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, o.getQuantidade());
-        ps.setLong(2, o.getId_estoque());
-        ps.setLong(3, o.getId_produto());
+        ps.setInt(2, o.getQuantidadeMaxima());
+        ps.setLong(3, o.getId_estoque());
+        ps.setLong(4, o.getId_produto());
         boolean rs = ps.executeUpdate() == 1;
         ps.close();
         con.close();
@@ -61,12 +63,13 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
     @Override
     public boolean inserir(ItemEstoque o) throws Exception {
         String sql = String.format(connectionFactory.getSQLInsert(), "itemEstoque",
-                "id_estoque, id_produto, quantidade", "?,?,?");
+                "id_estoque, id_produto, quantidade, quantidade_maxima", "?,?,?,?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setLong(1, o.getId_estoque());
         ps.setLong(2, o.getId_produto());
         ps.setInt(3, o.getQuantidade());
+        ps.setInt(4, o.getQuantidadeMaxima());
         boolean rs = ps.executeUpdate() == 1;
         ps.close();
         con.close();
