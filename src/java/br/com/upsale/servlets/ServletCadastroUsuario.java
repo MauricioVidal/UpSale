@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,8 +46,11 @@ public class ServletCadastroUsuario extends HttpServlet {
             user.setLogin(request.getParameter("login"));
             user.setSenha(request.getParameter("senha"));
             dao.inserir(user);
-            RequestDispatcher dispatcher =  getServletContext().getRequestDispatcher("./logar");
-            dispatcher.forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("nome", user.getNome());
+            session.setAttribute("login", user.getLogin());
+            session.setAttribute("id", user.getId());
+            response.sendRedirect("./");
         } catch (Exception ex) {
             Logger.getLogger(ServletCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");

@@ -161,7 +161,7 @@ public class WSUpSale {
             List<Usuario> lista = ((UsuarioDAO)dao).getLista(login);
             for (Usuario u : lista) {
                 if(u.getSenha().equals(senha)){
-                    return GSON.toJson(1);
+                    return GSON.toJson(u.getId());
                 }
             }
         } catch (Exception ex) {
@@ -176,6 +176,14 @@ public class WSUpSale {
         //TODO return proper representation object
         return "";
     }
+    
+    /*
+    public static void main(String[] args) {
+        WSUpSale ws = new WSUpSale();
+        System.out.println(ws.getProdutos(4));
+    }
+    */
+    
 //
 //    /**
 //     * PUT method for updating or creating an instance of WSUpSale
