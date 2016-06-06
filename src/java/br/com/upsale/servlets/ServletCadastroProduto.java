@@ -7,12 +7,10 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.model.Usuario;
+import br.com.upsale.model.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Mauricio R. Vidal
+ * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletCadastroUsuario", urlPatterns = {"/cadastro_login"})
-public class ServletCadastroUsuario extends HttpServlet {
+@WebServlet(name = "ServletCadastroUsuario", urlPatterns = {"/cadastro_produto"})
+public class ServletCadastroProduto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,20 +38,26 @@ public class ServletCadastroUsuario extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAO<Usuario> dao = CreatorDAO.create(CreatorDAO.USUARIO);
-            Usuario user = new Usuario();
-            user.setNome(request.getParameter("nome"));
-            user.setLogin(request.getParameter("login"));
-            user.setSenha(request.getParameter("senha"));
-            dao.inserir(user);
-           
+            DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
             HttpSession session = request.getSession();
-            session.setAttribute("nome", user.getNome());
-            session.setAttribute("login", user.getLogin());
-            session.setAttribute("id", user.getId());
-            response.sendRedirect("./");
+            Produto product = new Produto();
+            
+            product.setId_usuario((Long) session.getAttribute("id"));
+            product.setId_categoria(Long.parseLong(request.getParameter("categoria")));
+            product.setNome(request.getParameter("nome"));
+            product.setDescricao(request.getParameter("descricao"));
+            product.setPreco(Float.parseFloat(request.getParameter("preco")));
+           
+           
+            
+            dao.inserir(product);
+            
+//            session.setAttribute("nome", user.getNome());
+//            session.setAttribute("login", user.getLogin());
+//            session.setAttribute("id", user.getId());
+            response.sendRedirect("./cadastro_produto.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 
