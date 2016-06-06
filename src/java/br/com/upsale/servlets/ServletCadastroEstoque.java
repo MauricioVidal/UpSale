@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletCadastroProduto", urlPatterns = {"/cadastro_produto"})
-public class ServletCadastroProduto extends HttpServlet {
+@WebServlet(name = "ServletCadastroEstoque", urlPatterns = {"/cadastro_estoque"})
+public class ServletCadastroEstoque extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +57,7 @@ public class ServletCadastroProduto extends HttpServlet {
 //            session.setAttribute("id", user.getId());
             response.sendRedirect("./cadastro_produto.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastroEstoque.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 
