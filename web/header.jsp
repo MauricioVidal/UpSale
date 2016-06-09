@@ -15,7 +15,7 @@
                 <div id="menu" >
                     <div id="item_menu" class="menu">
                         <% if (sessao_ativa) {%>
-                        <div class="item_menu" > <a class="item" href="./cadastro_produto.jsp"> Produtos </a></div>
+                        <div class="item_menu" > <a class="item" href="./gerencia_produto.jsp"> Produtos </a></div>
                         <div class="item_menu" > <a class="item" href="./cadastro_estoque.jsp">Estoques </a></div>
                         <div class="item_menu" > <a class="item">Vendas </a></div>
                         <% }%>

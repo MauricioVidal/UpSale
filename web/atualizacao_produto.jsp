@@ -11,7 +11,7 @@
 <%@include file="header.jsp" %>
 <div class="container">
     <div id="formulario">
-        <h3>Cadastro de Produtos</h3>
+        <h3>Atualizacao de Produtos</h3>
         <form action="./cadastro_produto" method="POST">
             <label>Categoria: </label><br/><br/>
             <select name="categoria">

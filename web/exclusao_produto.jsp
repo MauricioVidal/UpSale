@@ -13,24 +13,20 @@
 <%@include file="header.jsp" %>
 <div class="container">
     <div id="formulario">
-        <h3>Cadastro de Estoques</h3>
+        <h3>Exclusão de produtos</h3>
         
                 <%
                 ProdutoDAO dao = new ProdutoDAO();
                 List<Produto> lista = dao.getLista((Long) session.getAttribute("id"));
                 if(lista.size() != 0){
-                    out.print("<form action=\"./cadastro_estoque\" method=\"POST\">"
+                    out.print("<form action=\"./exclusao_produto\" method=\"POST\">"
                             + "<label>Produto: </label><br/><br/>"
-                            + "<select name=\"estoque\">");
+                            + "<select name=\"produto\">");
                     for(Produto p: lista) {
                         out.print("<option value=\"" + p.getId() + "\">" + p.getNome() + "</option>");
                     }
                     out.print("</select><br/><br/>"
-                            + "<label>Quantidade: </label><br/><br/>"
-                            + "<input type=\"text\" name=\"quantidade\" /><br/><br/>"
-                            + "<label>Quantidade Máxima: </label><br/><br/>"
-                            + "<input type=\"text\" name=\"quantidadeMaxima\" /><br/><br/>"
-                            + "<input type=\"submit\" value=\"Cadastrar Estoque\"><br/>"
+                            + "<input type=\"submit\" value=\"Excluir\"><br/>"
                             + "</form>");
                 }else{
                     out.print("Você ainda não possui produtos cadastrados.<br/>"

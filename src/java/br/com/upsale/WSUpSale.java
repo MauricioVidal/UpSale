@@ -20,6 +20,7 @@ import br.com.upsale.model.Produto;
 import br.com.upsale.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -177,12 +178,17 @@ public class WSUpSale {
         return "";
     }
     
-    /*
-    public static void main(String[] args) {
+    
+    /*public static void main(String[] args) throws Exception {
         WSUpSale ws = new WSUpSale();
         System.out.println(ws.getProdutos(4));
-    }
-    */
+        Estoque e = new Estoque();
+        e.setData(new Date());
+        e.getData().setDate(10);
+        EstoqueDAO ed = new EstoqueDAO();
+        ed.inserir(e);
+    }*/
+    
     
 //
 //    /**

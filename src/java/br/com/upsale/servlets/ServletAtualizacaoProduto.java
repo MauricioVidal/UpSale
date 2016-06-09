@@ -7,14 +7,8 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.bd.EstoqueDAO;
-import br.com.upsale.model.Estoque;
-import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.Produto;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -28,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletCadastroEstoque", urlPatterns = {"/cadastro_estoque"})
-public class ServletCadastroEstoque extends HttpServlet {
+@WebServlet(name = "ServletCadastroProduto", urlPatterns = {"/atualizacao_produto"})
+public class ServletAtualizacaoProduto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,23 +38,26 @@ public class ServletCadastroEstoque extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
-            EstoqueDAO estoque = new EstoqueDAO();
+            DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
             HttpSession session = request.getSession();
-            Estoque e = new Estoque();
-            e.setData(new Date());
-            estoque.inserir(e);
-            ItemEstoque item = new ItemEstoque();
-            item.setId_produto(Long.parseLong(request.getParameter("estoque")));
-            Long t = estoque.getDateId(e.getData());
-            item.setId_estoque(estoque.getDateId(e.getData()));
-            item.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-            item.setQuantidadeMaxima(Integer.parseInt(request.getParameter("quantidadeMaxima")));
-
-            dao.inserir(item);
-            response.sendRedirect("./cadastro_estoque.jsp");
+            Produto product = new Produto();
+            product.setId(Long.parseLong(request.getParameter("produto")));
+            product.setId_usuario((Long) session.getAttribute("id"));
+            product.setId_categoria(Long.parseLong(request.getParameter("categoria")));
+            product.setNome(request.getParameter("nome"));
+            product.setDescricao(request.getParameter("descricao"));
+            product.setPreco(Float.parseFloat(request.getParameter("preco")));
+           
+           
+            
+            dao.atualizar(product);
+            
+//            session.setAttribute("nome", user.getNome());
+//            session.setAttribute("login", user.getLogin());
+//            session.setAttribute("id", user.getId());
+            response.sendRedirect("./atualizacao_produto_selecao.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletCadastroEstoque.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 
