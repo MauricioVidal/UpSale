@@ -12,7 +12,7 @@ img{
         width:100%;
     }
     #conteudo{
-        //border-style: dotted;
+        
         width: 80%;
         margin: auto;
     }
@@ -20,7 +20,7 @@ img{
         width: 50%;
     }
     #button_menu{
-        //border-style: dotted;
+        
         width: 49%;
     }
     #menu{
@@ -91,7 +91,7 @@ img{
     }
     .modal-content{
         margin:auto;
-        //    background-color:#239941;
+     
         background-color: white;
         position:relative;
         padding:0;
