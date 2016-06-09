@@ -42,7 +42,7 @@ public class ProdutoDAO implements DAO<Produto> {
 
     @Override
     public boolean atualizar(Produto o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLUpdate(), "produto","nome, descricao, id_categoria, id_usuario, preco, lucro", "?, ?, ?, ?, ?, ?", "id = ?");
+        String sql = String.format(connectionFactory.getSQLUpdate(), "produto","nome = ?, descricao = ?, id_categoria = ?, id_usuario = ?, preco = ?, lucro = ?", "id = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, o.getNome());
@@ -51,6 +51,7 @@ public class ProdutoDAO implements DAO<Produto> {
         ps.setLong(4, o.getId_usuario());
         ps.setFloat(5, o.getPreco());
         ps.setFloat(6, o.getLucro());
+        ps.setFloat(7, o.getId());
         boolean rs = ps.executeUpdate() == 1;
         ps.close();
         con.close();

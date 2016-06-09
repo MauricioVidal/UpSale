@@ -20,10 +20,6 @@
                     for(Categoria c: lista) {
                         out.print("<option value=\"" + c.getId() + "\">" + c.getNome() + "</option>");
                     }
-//                    <option value=c.getNome()>>Botafogo</option>
-//                    <option value="fla">Flamengo</option>
-//                    <option value="flu">Fluminense</option>
-//                    <option value="vasco">Vasco da Gama</option>
                 %>
             </select><br/><br/>
             <label>Nome: </label><br/><br/>
