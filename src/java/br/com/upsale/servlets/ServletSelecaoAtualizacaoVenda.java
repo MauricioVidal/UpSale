@@ -7,7 +7,8 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.model.Produto;
+import br.com.upsale.model.ItemEstoque;
+import br.com.upsale.model.ItemVenda;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,10 +21,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Marcelo Bastos
+ * @author Matheus Costa
  */
-@WebServlet(name = "ServletCadastroProduto", urlPatterns = {"/selecao_atualizacao_produto"})
-public class ServletAtualizacaoProdutoSelecao extends HttpServlet {
+@WebServlet(name = "ServletSelecaoAtualizacaoVenda", urlPatterns = {"/selecao_atualizacao_venda"})
+public class ServletSelecaoAtualizacaoVenda extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,12 +39,16 @@ public class ServletAtualizacaoProdutoSelecao extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            DAO<ItemVenda> dao = CreatorDAO.create(CreatorDAO.ITEMVENDA);
             HttpSession session = request.getSession();
-            String test = request.getParameter("produto");
-            session.setAttribute("id_produto", Long.parseLong(request.getParameter("produto")));
-            response.sendRedirect("./atualizacao_produto.jsp");
+            ItemVenda i = new ItemVenda();
+            String [] id = request.getParameter("venda").split("_");
+            session.setAttribute("id_produto", Long.parseLong(id[0]));
+            session.setAttribute("id_venda", Long.parseLong(id[1]));
+            
+            response.sendRedirect("./atualiza_venda.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletAtualizacaoProdutoSelecao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletSelecaoAtualizacaoVenda.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 
