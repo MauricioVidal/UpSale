@@ -63,6 +63,15 @@
         <url-pattern>/cadastro_venda</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ServletExclusaoVenda</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletExclusaoVenda</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletExclusaoVenda</servlet-name>
+        <url-pattern>/exclusao_venda</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

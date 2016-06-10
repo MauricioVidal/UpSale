@@ -87,4 +87,27 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
         return rs;
     }
 
+    public List<List<String>> getProdutoVenda() throws Exception{
+        List<List<String>> lista = new ArrayList();
+        String sql = String.format(connectionFactory.getSQLSelect(), "itemVenda iv, produto p, venda v "
+                + "where iv.id_venda = v.id and iv.id_produto = p.id");
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            List<String> l = new ArrayList<>();
+            l.add(rs.getString("nome"));
+            l.add(rs.getString("quantidade"));
+            String date = rs.getString("data_venda");
+            String [] aux = date.split("-");
+            l.add(aux[2]+"/"+aux[1]+"/"+aux[0]);
+            l.add(rs.getString("id_produto"));
+            l.add(rs.getString("id_venda"));
+            lista.add(l);
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
 }
