@@ -54,6 +54,15 @@
         <url-pattern>/exclusao_estoque</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ServletCadastroVenda</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletCadastroVenda</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletCadastroVenda</servlet-name>
+        <url-pattern>/cadastro_venda</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

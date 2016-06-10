@@ -17,7 +17,7 @@
                         <% if (sessao_ativa) {%>
                         <div class="item_menu" > <a class="item" href="./gerencia_produto.jsp"> Produtos </a></div>
                         <div class="item_menu" > <a class="item" href="./gerencia_estoque.jsp">Estoques </a></div>
-                        <div class="item_menu" > <a class="item">Vendas </a></div>
+                        <div class="item_menu" > <a class="item" href="./gerencia_venda.jsp">Vendas </a></div>
                         <% }%>
                     </div>
                     <div id="button_menu" class="menu">

@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VendaDAO implements DAO<Venda>{
     
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
     @Override
     public List<Venda> getLista() throws Exception {
@@ -35,11 +36,11 @@ public class VendaDAO implements DAO<Venda>{
 
     @Override
     public boolean atualizar(Venda o) throws Exception {
-        String sql = String.format(connectionFactory.getSQLUpdate(), "venda","data_venda", "?", "id = ?");
+        String sql = String.format(connectionFactory.getSQLUpdate(), "venda","data_venda = ?", "data_venda = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, sdf.format(o.getData()));
-        ps.setLong(2, o.getId());
+        ps.setString(2, sdf.format(o.getData()));
         boolean rs = ps.executeUpdate() == 1;
         ps.close();
         con.close();
@@ -48,8 +49,10 @@ public class VendaDAO implements DAO<Venda>{
 
     @Override
     public boolean inserir(Venda o) throws Exception {
-         String sql = String.format(connectionFactory.getSQLInsert(), "venda",
-                "data_venda", "?");
+        if (atualizar(o)) {
+            return true;
+        }
+        String sql = String.format(connectionFactory.getSQLInsert(), "venda", "data_venda", "?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, sdf.format(o.getData()));
@@ -69,6 +72,22 @@ public class VendaDAO implements DAO<Venda>{
         ps.close();
         con.close();
         return rs;
+    }
+    
+    public Long getDateId(Date date) throws Exception {
+        String sql = String.format(connectionFactory.getSQLSelect(), 
+                "venda WHERE data_venda= (SELECT MAX(data_venda) FROM venda)");
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        Long id = 0L;
+        if (rs.next()) {
+            id = rs.getLong("id");
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return id;
     }
     
 }
