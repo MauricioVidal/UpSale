@@ -45,6 +45,15 @@
         <url-pattern>/exclusao_produto</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ServletExclusaoEstoque</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletExclusaoEstoque</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletExclusaoEstoque</servlet-name>
+        <url-pattern>/exclusao_estoque</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

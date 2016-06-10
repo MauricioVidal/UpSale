@@ -10,6 +10,7 @@ import br.com.upsale.model.ItemEstoque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,4 +90,29 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
         return rs;
     }
 
+    public List<List<String>> getProdutoEstoque() throws Exception{
+        List<List<String>> lista = new ArrayList();
+        String sql = String.format(connectionFactory.getSQLSelect(), "produto_estoque");
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            List<String> l = new ArrayList<>();
+            l.add(rs.getString("id_produto"));
+            l.add(rs.getString("id_estoque"));
+            //l.add(rs.getString("data_estoque"));
+            String date = rs.getString("data_estoque").substring(0, 7);
+            String [] aux = date.split("-");
+            l.add(aux[1]+"/"+aux[0]);
+            l.add(rs.getString("nome_produto"));
+            l.add(rs.getString("preco"));
+            l.add(rs.getString("quantidade"));
+            l.add(rs.getString("quantidade_maxima"));
+            lista.add(l);
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
 }
