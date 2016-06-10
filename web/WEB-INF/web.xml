@@ -18,12 +18,12 @@
         <url-pattern>/cadastro_produto</url-pattern>
     </servlet-mapping>
     
-   <servlet>
-        <servlet-name>ServletAtualizacaoProdutoSelecao</servlet-name>
-        <servlet-class>br.com.upsale.servlets.ServletAtualizacaoProdutoSelecao</servlet-class>
+    <servlet>
+        <servlet-name>ServletSelecaoAtualizacaoProduto</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletSelecaoAtualizacaoProduto</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ServletAtualizacaoProdutoSelecao</servlet-name>
+        <servlet-name>ServletSelecaoAtualizacaoProduto</servlet-name>
         <url-pattern>/selecao_atualizacao_produto</url-pattern>
     </servlet-mapping>
     
@@ -43,6 +43,33 @@
     <servlet-mapping>
         <servlet-name>ServletExclusaoProduto</servlet-name>
         <url-pattern>/exclusao_produto</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletCadastroEstoque</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletCadastroEstoque</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletCadastroEstoque</servlet-name>
+        <url-pattern>/cadastro_estoque</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletSelecaoAtualizacaoEstoque</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletSelecaoAtualizacaoEstoque</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSelecaoAtualizacaoEstoque</servlet-name>
+        <url-pattern>/selecao_atualizacao_estoque</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletAtualizacaoEstoque</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletAtualizacaoEstoque</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAtualizacaoEstoque</servlet-name>
+        <url-pattern>/atualizacao_estoque</url-pattern>
     </servlet-mapping>
     
     <servlet>

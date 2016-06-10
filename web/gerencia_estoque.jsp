@@ -8,7 +8,7 @@
         <h3>Gerência de Estoques</h3><br />
         Clique na opção desejada:<br />
         <a class="item" href="./cadastro_estoque.jsp">Cadastro de Estoques </a><br />
-        <a class="item" href="./atualizacao_estoque.jsp">Atualização de Estoques </a><br />
+        <a class="item" href="./selecao_atualizacao_estoque.jsp">Atualização de Estoques </a><br />
         <a class="item" href="./exclusao_estoque.jsp">Exclusão de Estoques </a><br />
         
 </div>

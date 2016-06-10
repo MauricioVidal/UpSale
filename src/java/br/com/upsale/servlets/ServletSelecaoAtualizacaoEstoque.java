@@ -7,7 +7,7 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.model.Produto;
+import br.com.upsale.model.ItemEstoque;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletAtualizacaoProduto", urlPatterns = {"/atualizacao_produto"})
-public class ServletAtualizacaoProduto extends HttpServlet {
+@WebServlet(name = "ServletSelecaoAtualizacaoEstoque", urlPatterns = {"/selecao_atualizacao_estoque"})
+public class ServletSelecaoAtualizacaoEstoque extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +38,18 @@ public class ServletAtualizacaoProduto extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
+            DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
             HttpSession session = request.getSession();
-            Produto product = new Produto();
-            product.setId((Long)session.getAttribute("id_produto"));
-            session.removeAttribute("id_produto");
-            product.setId_usuario((Long) session.getAttribute("id"));
-            product.setId_categoria(Long.parseLong(request.getParameter("categoria")));
-            product.setNome(request.getParameter("nome"));
-            product.setDescricao(request.getParameter("descricao"));
-            product.setPreco(Float.parseFloat(request.getParameter("preco")));
-           
-            dao.atualizar(product);
+            ItemEstoque i = new ItemEstoque();
+            String [] id = request.getParameter("estoque").split("_");
+            session.setAttribute("id_produto", Long.parseLong(id[0]));
+            session.setAttribute("id_estoque", Long.parseLong(id[1]));
+            //i.setId_produto(Long.parseLong(id[0]));
+            //i.setId_estoque(Long.parseLong(id[1]));
             
-            response.sendRedirect("./atualizacao_produto_selecao.jsp");
+            response.sendRedirect("./atualizacao_estoque.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletSelecaoAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 

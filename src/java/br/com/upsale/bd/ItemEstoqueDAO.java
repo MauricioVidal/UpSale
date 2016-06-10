@@ -115,4 +115,24 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
         con.close();
         return lista;
     }
+    
+     public ItemEstoque getItemEstoque(long id_estoque, long id_produto) throws Exception {
+        String sql = String.format(connectionFactory.getSQLSelect(), 
+                "itemEstoque WHERE id_estoque = " + id_estoque + " and id_produto = "+id_produto);
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ItemEstoque ie = null;
+        if (rs.next()) {
+            ie = new ItemEstoque();
+            ie.setId_estoque(id_estoque);
+            ie.setId_produto(id_produto);
+            ie.setQuantidade(rs.getInt("quantidade"));
+            ie.setQuantidadeMaxima(rs.getInt("quantidade_maxima"));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return ie;
+    }
 }

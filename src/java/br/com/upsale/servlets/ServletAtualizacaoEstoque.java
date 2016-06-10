@@ -7,6 +7,7 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
+import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.Produto;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -22,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletAtualizacaoProduto", urlPatterns = {"/atualizacao_produto"})
-public class ServletAtualizacaoProduto extends HttpServlet {
+@WebServlet(name = "ServletAtualizacaoEstoque", urlPatterns = {"/atualizacao_estoque"})
+public class ServletAtualizacaoEstoque extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +39,22 @@ public class ServletAtualizacaoProduto extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
+            DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
             HttpSession session = request.getSession();
-            Produto product = new Produto();
-            product.setId((Long)session.getAttribute("id_produto"));
-            session.removeAttribute("id_produto");
-            product.setId_usuario((Long) session.getAttribute("id"));
-            product.setId_categoria(Long.parseLong(request.getParameter("categoria")));
-            product.setNome(request.getParameter("nome"));
-            product.setDescricao(request.getParameter("descricao"));
-            product.setPreco(Float.parseFloat(request.getParameter("preco")));
-           
-            dao.atualizar(product);
+            ItemEstoque ie = new ItemEstoque();
+            ie.setId_estoque((Long)session.getAttribute("id_estoque"));
+            ie.setId_produto((Long)session.getAttribute("id_produto"));
+            ie.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
+            ie.setQuantidadeMaxima(Integer.parseInt(request.getParameter("quantidade_maxima")));
             
-            response.sendRedirect("./atualizacao_produto_selecao.jsp");
+            session.removeAttribute("id_produto");
+            session.removeAttribute("id_estoque");
+           
+            dao.atualizar(ie);
+            
+            response.sendRedirect("./selecao_atualizacao_estoque.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 
