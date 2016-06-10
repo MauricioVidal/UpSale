@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProdutoDAO implements DAO<Produto> {
@@ -87,4 +88,25 @@ public class ProdutoDAO implements DAO<Produto> {
         return rs; 
     }
 
+    public Produto getProduto(long id) throws Exception {
+        String sql = String.format(connectionFactory.getSQLSelect(), 
+                "produto WHERE id = " + id);
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        Produto product = null;
+        if (rs.next()) {
+            product = new Produto();
+            product.setId(id);
+            product.setId_usuario(rs.getLong("id_usuario"));
+            product.setId_categoria(rs.getLong("id_categoria"));
+            product.setNome(rs.getString("nome"));
+            product.setDescricao(rs.getString("descricao"));
+            product.setPreco(rs.getInt("preco"));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return product;
+    }
 }

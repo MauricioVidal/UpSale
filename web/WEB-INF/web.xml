@@ -8,6 +8,43 @@
         <servlet-name>ServletLogar</servlet-name>
         <url-pattern>/logar</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletCadastroProduto</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletCadastroProduto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletCadastroProduto</servlet-name>
+        <url-pattern>/cadastro_produto</url-pattern>
+    </servlet-mapping>
+    
+   <servlet>
+        <servlet-name>ServletAtualizacaoProdutoSelecao</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletAtualizacaoProdutoSelecao</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAtualizacaoProdutoSelecao</servlet-name>
+        <url-pattern>/selecao_atualizacao_produto</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletAtualizacaoProduto</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletAtualizacaoProduto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAtualizacaoProduto</servlet-name>
+        <url-pattern>/atualizacao_produto</url-pattern>
+    </servlet-mapping>
+       
+    <servlet>
+        <servlet-name>ServletExclusaoProduto</servlet-name>
+        <servlet-class>br.com.upsale.servlets.ServletExclusaoProduto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletExclusaoProduto</servlet-name>
+        <url-pattern>/exclusao_produto</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

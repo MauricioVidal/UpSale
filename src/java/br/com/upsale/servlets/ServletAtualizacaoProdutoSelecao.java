@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marcelo Bastos
  */
-@WebServlet(name = "ServletCadastroProduto", urlPatterns = {"/atualizacao_produto"})
-public class ServletAtualizacaoProduto extends HttpServlet {
+@WebServlet(name = "ServletCadastroProduto", urlPatterns = {"/selecao_atualizacao_produto"})
+public class ServletAtualizacaoProdutoSelecao extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +38,12 @@ public class ServletAtualizacaoProduto extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
             HttpSession session = request.getSession();
-            Produto product = new Produto();
-            product.setId((Long)session.getAttribute("id_produto"));
-            session.removeAttribute("id_produto");
-            product.setId_usuario((Long) session.getAttribute("id"));
-            product.setId_categoria(Long.parseLong(request.getParameter("categoria")));
-            product.setNome(request.getParameter("nome"));
-            product.setDescricao(request.getParameter("descricao"));
-            product.setPreco(Float.parseFloat(request.getParameter("preco")));
-           
-            dao.atualizar(product);
-            
-            response.sendRedirect("./atualizacao_produto_selecao.jsp");
+            String test = request.getParameter("produto");
+            session.setAttribute("id_produto", Long.parseLong(request.getParameter("produto")));
+            response.sendRedirect("./atualizacao_produto.jsp");
         } catch (Exception ex) {
-            Logger.getLogger(ServletAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletAtualizacaoProdutoSelecao.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
         }
 

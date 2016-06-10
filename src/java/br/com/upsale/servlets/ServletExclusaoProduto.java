@@ -41,17 +41,11 @@ public class ServletExclusaoProduto extends HttpServlet {
             DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
             HttpSession session = request.getSession();
             Produto product = new Produto();
-            product.setId(Long.parseLong(request.getParameter("produto")));
-            //product.setId_usuario((Long) session.getAttribute("id"));
-           
-           
+            product.setId(Long.parseLong(request.getParameter("produto")));           
             
             dao.remover(product);
             
-//            session.setAttribute("nome", user.getNome());
-//            session.setAttribute("login", user.getLogin());
-//            session.setAttribute("id", user.getId());
-            response.sendRedirect("./atualizacao_produto_selecao.jsp");
+            response.sendRedirect("./exclusao_produto.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletExclusaoProduto.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");

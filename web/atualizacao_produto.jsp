@@ -17,41 +17,37 @@
 
         <%
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> lista = dao.getLista((Long) session.getAttribute("id"));
-            if (lista.size() != 0) {
-                out.print("<form action=\"./atualizacao_produto\" method=\"POST\">"
-                        + "<label>Selecione um produto: </label><br/><br/>"
-                        + "<select name=\"produto\">");
-                for (Produto p : lista) {
-                    out.print("<option value=\"" + p.getId() + "\">" + p.getNome() + "</option>");
-                }
+            Produto product = dao.getProduto((Long) session.getAttribute("id_produto"));
+            if (product != null) {
                 DAO<Categoria> dao2 = CreatorDAO.create(CreatorDAO.CATEGORIA);
                 List<Categoria> lista2 = dao2.getLista();
-                out.print("</select><br/><br/>" +
-                        "<label>Categoria: </label><br/><br/>"+
-                    "<select name=\"categoria\">");
+                out.print("<form action=\"./atualizacao_produto\" method=\"POST\">"
+                        + "<label>Categoria: </label><br/><br/>"
+                        + "<select name=\"categoria\">");
                 for (Categoria c : lista2) {
-                    out.print("<option value=\"" + c.getId() + "\">" + c.getNome() + "</option>");
+                    String s = "";
+                    Long t = c.getId();
+                    if (c.getId() == product.getId_categoria()) {
+                        s = " selected";
+                    }
+                    out.print("<option value=\"" + c.getId() + "\"" + s
+                            +">" + c.getNome() + "</option>");
                 }
 
                 out.print("</select><br/><br/>"
                         + "<label>Nome: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"nome\" /><br/><br/>"
+                        + "<input type=\"text\" name=\"nome\" value=\'" + product.getNome() + "\'/><br/><br/>"
                         + "<label>Descrição: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"descricao\" /><br/><br/>"
+                        + "<input type=\"text\" name=\"descricao\" value=\'" + product.getDescricao() + "\'/><br/><br/>"
                         + "<label>Preço: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"preco\" /><br/><br/>"
+                        + "<input type=\"text\" name=\"preco\" value=\'" + product.getPreco() + "\'/><br/><br/>"
                         + "<input type=\"submit\" value=\"Atualizar Produto\"><br/>"
                         + "</form>");
             } else {
-                out.print("Você ainda não possui produtos cadastrados.<br/>"
-                        + "Vá na janela <a href=\"./cadastro_produto.jsp\"> Cadastro de Produtos</a>"
-                        + " para cadastrar novos produtos.");
+                out.print("Produto não cadastrado.<br/>"
+                        + "Por favor tente novamente");
             }
         %>
-
-
-
 
     </div>
 </div>
