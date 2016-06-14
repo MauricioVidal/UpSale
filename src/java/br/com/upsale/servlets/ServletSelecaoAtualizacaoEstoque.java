@@ -48,6 +48,7 @@ public class ServletSelecaoAtualizacaoEstoque extends HttpServlet {
             //i.setId_estoque(Long.parseLong(id[1]));
             
             response.sendRedirect("./atualizacao_estoque.jsp");
+            
         } catch (Exception ex) {
             Logger.getLogger(ServletSelecaoAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
