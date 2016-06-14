@@ -10,11 +10,8 @@ import br.com.upsale.bd.DAO;
 import br.com.upsale.bd.EstoqueDAO;
 import br.com.upsale.model.Estoque;
 import br.com.upsale.model.ItemEstoque;
-import br.com.upsale.model.Produto;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -42,11 +39,11 @@ public class ServletCadastroEstoque extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./cadastro_estoque.jsp");
         try {
             DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
             EstoqueDAO estoque = new EstoqueDAO();
-            HttpSession session = request.getSession();
             Estoque e = new Estoque();
             e.setData(new Date());
             estoque.inserir(e);
@@ -58,12 +55,12 @@ public class ServletCadastroEstoque extends HttpServlet {
             item.setQuantidadeMaxima(Integer.parseInt(request.getParameter("quantidadeMaxima")));
 
             dao.inserir(item);
-            response.sendRedirect("./cadastro_estoque.jsp");
+            session.setAttribute("msg", "Estoque cadastrado com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletCadastroEstoque.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao cadastrar estoque. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

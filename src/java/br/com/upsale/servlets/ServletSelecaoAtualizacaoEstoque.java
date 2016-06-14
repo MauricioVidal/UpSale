@@ -36,22 +36,20 @@ public class ServletSelecaoAtualizacaoEstoque extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         try {
             DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
-            HttpSession session = request.getSession();
+            
             ItemEstoque i = new ItemEstoque();
             String [] id = request.getParameter("estoque").split("_");
             session.setAttribute("id_produto", Long.parseLong(id[0]));
             session.setAttribute("id_estoque", Long.parseLong(id[1]));
-            //i.setId_produto(Long.parseLong(id[0]));
-            //i.setId_estoque(Long.parseLong(id[1]));
-            
             response.sendRedirect("./atualizacao_estoque.jsp");
-            
         } catch (Exception ex) {
             Logger.getLogger(ServletSelecaoAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Por favor selecione um estoque.");
+            session.setAttribute("redirect", "./selecao_atualizacao_estoque.jsp");
+            response.sendRedirect("./checagem.jsp");
         }
 
     }

@@ -5,9 +5,6 @@
  */
 package br.com.upsale.servlets;
 
-import br.com.upsale.bd.CreatorDAO;
-import br.com.upsale.bd.DAO;
-import br.com.upsale.model.Produto;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,15 +33,16 @@ public class ServletSelecaoAtualizacaoProduto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         try {
-            HttpSession session = request.getSession();
             String test = request.getParameter("produto");
             session.setAttribute("id_produto", Long.parseLong(request.getParameter("produto")));
             response.sendRedirect("./atualizacao_produto.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletSelecaoAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Por favor selecione um produto.");
+            session.setAttribute("redirect", "./selecao_atualizacao_produto.jsp");
+            response.sendRedirect("./checagem.jsp");
         }
 
     }

@@ -36,23 +36,22 @@ public class ServletExclusaoEstoque extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./exclusao_estoque.jsp");
         try {
             DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
-            HttpSession session = request.getSession();
             ItemEstoque i = new ItemEstoque();
             String [] id = request.getParameter("estoque").split("_");
             i.setId_produto(Long.parseLong(id[0]));
             i.setId_estoque(Long.parseLong(id[1]));
             
             dao.remover(i);
-            
-            response.sendRedirect("./exclusao_estoque.jsp");
+            session.setAttribute("msg", "Estoque excluído com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletExclusaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao excluir estoque. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

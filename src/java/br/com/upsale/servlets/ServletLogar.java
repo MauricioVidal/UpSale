@@ -6,11 +6,9 @@
 package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
-import br.com.upsale.bd.DAO;
 import br.com.upsale.bd.UsuarioDAO;
 import br.com.upsale.model.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;

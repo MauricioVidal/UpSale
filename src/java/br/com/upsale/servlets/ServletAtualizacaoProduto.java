@@ -36,10 +36,10 @@ public class ServletAtualizacaoProduto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./selecao_atualizacao_produto.jsp");
         try {
             DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
-            HttpSession session = request.getSession();
             Produto product = new Produto();
             product.setId((Long)session.getAttribute("id_produto"));
             session.removeAttribute("id_produto");
@@ -48,15 +48,15 @@ public class ServletAtualizacaoProduto extends HttpServlet {
             product.setNome(request.getParameter("nome"));
             product.setDescricao(request.getParameter("descricao"));
             product.setPreco(Float.parseFloat(request.getParameter("preco")));
-           
+            
             dao.atualizar(product);
             
-            response.sendRedirect("./atualizacao_produto_selecao.jsp");
+            session.setAttribute("msg", "Produto atualizado com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletAtualizacaoProduto.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao atualizar produto. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

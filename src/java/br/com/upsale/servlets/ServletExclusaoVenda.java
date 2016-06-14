@@ -7,7 +7,6 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.ItemVenda;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -37,10 +36,10 @@ public class ServletExclusaoVenda extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./exclusao_venda.jsp");
         try {
             DAO<ItemVenda> dao = CreatorDAO.create(CreatorDAO.ITEMVENDA);
-            HttpSession session = request.getSession();
             ItemVenda i = new ItemVenda();
             String [] id = request.getParameter("venda").split("_");
             i.setId_produto(Long.parseLong(id[0]));
@@ -48,12 +47,12 @@ public class ServletExclusaoVenda extends HttpServlet {
             
             dao.remover(i);
             
-            response.sendRedirect("./exclusao_venda.jsp");
+            session.setAttribute("msg", "Venda excluída com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletExclusaoVenda.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao excluir venda. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,14 +7,10 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.bd.EstoqueDAO;
 import br.com.upsale.bd.VendaDAO;
-import br.com.upsale.model.Estoque;
-import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.ItemVenda;
 import br.com.upsale.model.Venda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,12 +39,12 @@ public class ServletCadastroVenda extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./cadastro_venda.jsp");
         try {
             DAO<ItemVenda> dao = CreatorDAO.create(CreatorDAO.ITEMVENDA);
             VendaDAO venda = new VendaDAO();
             ItemVenda item = new ItemVenda();
-            HttpSession session = request.getSession();
             
             Venda v = new Venda();
             v.setData(new Date());
@@ -59,12 +55,12 @@ public class ServletCadastroVenda extends HttpServlet {
             
             venda.inserir(v);
             dao.inserir(item);
-            response.sendRedirect("./cadastro_venda.jsp");
+            session.setAttribute("msg", "Venda cadastrada com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletCadastroVenda.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao cadastrar venda. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

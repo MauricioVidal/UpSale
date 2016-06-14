@@ -8,7 +8,6 @@ package br.com.upsale.servlets;
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
 import br.com.upsale.model.ItemEstoque;
-import br.com.upsale.model.Produto;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,10 +36,10 @@ public class ServletAtualizacaoEstoque extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./selecao_atualizacao_estoque.jsp");
         try {
             DAO<ItemEstoque> dao = CreatorDAO.create(CreatorDAO.ITEMESTOQUE);
-            HttpSession session = request.getSession();
             ItemEstoque ie = new ItemEstoque();
             ie.setId_estoque((Long)session.getAttribute("id_estoque"));
             ie.setId_produto((Long)session.getAttribute("id_produto"));
@@ -51,14 +50,12 @@ public class ServletAtualizacaoEstoque extends HttpServlet {
             session.removeAttribute("id_estoque");
            
             dao.atualizar(ie);
-            
-            //response.sendRedirect("./selecao_atualizacao_estoque.jsp");
-            session.setAttribute("redirect", "./selecao_atualizacao_estoque.jsp");
-            response.sendRedirect("./confirmacao.jsp");
+            session.setAttribute("msg", "Estoque atualizado com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao atualizar estoque. Por favor tente novamente.");
         }
+        response.sendRedirect("./checagem.jsp");
 
     }
 

@@ -36,10 +36,10 @@ public class ServletCadastroProduto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./cadastro_produto.jsp");
         try {
             DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
-            HttpSession session = request.getSession();
             Produto product = new Produto();
             
             product.setId_usuario((Long) session.getAttribute("id"));
@@ -47,20 +47,14 @@ public class ServletCadastroProduto extends HttpServlet {
             product.setNome(request.getParameter("nome"));
             product.setDescricao(request.getParameter("descricao"));
             product.setPreco(Float.parseFloat(request.getParameter("preco")));
-           
-           
             
             dao.inserir(product);
-            
-//            session.setAttribute("nome", user.getNome());
-//            session.setAttribute("login", user.getLogin());
-//            session.setAttribute("id", user.getId());
-            response.sendRedirect("./cadastro_produto.jsp");
+            session.setAttribute("msg", "Produto cadastrado com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao cadastrar produto. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

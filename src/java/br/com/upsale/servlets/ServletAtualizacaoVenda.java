@@ -7,9 +7,7 @@ package br.com.upsale.servlets;
 
 import br.com.upsale.bd.CreatorDAO;
 import br.com.upsale.bd.DAO;
-import br.com.upsale.model.ItemEstoque;
 import br.com.upsale.model.ItemVenda;
-import br.com.upsale.model.Produto;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,10 +36,11 @@ public class ServletAtualizacaoVenda extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./selecao_atualizacao_venda.jsp");
         try {
             DAO<ItemVenda> dao = CreatorDAO.create(CreatorDAO.ITEMVENDA);
-            HttpSession session = request.getSession();
+            
             ItemVenda iv = new ItemVenda();
             iv.setId_venda((Long)session.getAttribute("id_venda"));
             iv.setId_produto((Long)session.getAttribute("id_produto"));
@@ -52,12 +51,12 @@ public class ServletAtualizacaoVenda extends HttpServlet {
            
             dao.atualizar(iv);
             
-            response.sendRedirect("./selecao_atualizacao_venda.jsp");
+            session.setAttribute("msg", "Venda atualizada com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletAtualizacaoVenda.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao atualizar venda. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

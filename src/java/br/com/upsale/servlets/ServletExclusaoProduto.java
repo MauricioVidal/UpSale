@@ -36,21 +36,21 @@ public class ServletExclusaoProduto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./exclusao_produto.jsp");
         try {
             DAO<Produto> dao = CreatorDAO.create(CreatorDAO.PRODUTO);
-            HttpSession session = request.getSession();
             Produto product = new Produto();
             product.setId(Long.parseLong(request.getParameter("produto")));           
             
             dao.remover(product);
             
-            response.sendRedirect("./exclusao_produto.jsp");
+            session.setAttribute("msg", "Produto excluído com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletExclusaoProduto.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao excluir produto. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
