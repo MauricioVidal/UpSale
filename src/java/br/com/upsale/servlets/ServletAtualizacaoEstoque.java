@@ -52,7 +52,9 @@ public class ServletAtualizacaoEstoque extends HttpServlet {
            
             dao.atualizar(ie);
             
-            response.sendRedirect("./selecao_atualizacao_estoque.jsp");
+            //response.sendRedirect("./selecao_atualizacao_estoque.jsp");
+            session.setAttribute("redirect", "./selecao_atualizacao_estoque.jsp");
+            response.sendRedirect("./confirmacao.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletAtualizacaoEstoque.class.getName()).log(Level.SEVERE, null, ex);
             response.sendRedirect("./?error-cadastro");
