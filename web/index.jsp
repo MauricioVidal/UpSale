@@ -5,13 +5,10 @@
 --%>
 <!-- cabecalho-->
 <%@include file="header.jsp" %>
+
 <div class="container">
-    <h1>Hello World!</h1>
+    <%@include file="slide_show.jsp" %>
 </div>
-
-
-
-<!-- TAG Conteudo-->
 </div>
 </body>
 </html>

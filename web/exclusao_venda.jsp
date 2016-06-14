@@ -28,7 +28,7 @@
                 for (List<String> l : lista) {
                     String id = l.get(3)+"_"+l.get(4);
                     out.print("<tr> <td><input type=\"radio\" name=\"venda\" value=\""+ id+"\"/></td>");
-                    for(int i=0; i<l.size(); i++){
+                    for(int i=0; i<3; i++){
                         out.print("<td>"+ l.get(i)+"</td>");
                     }
                     out.print("</tr>");

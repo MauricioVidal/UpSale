@@ -47,7 +47,7 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
     @Override
     public boolean atualizar(ItemVenda o) throws Exception {
         String sql = String.format(connectionFactory.getSQLUpdate(), "itemVenda",
-                "quantidade", "?", "id_produto = ? and id_venda = ?");
+                "quantidade = ?", "id_produto = ? and id_venda = ?");
         Connection con = connectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, o.getQuantidade());
@@ -58,6 +58,7 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
         con.close();
         return rs;
     }
+
 
     @Override
     public boolean inserir(ItemVenda o) throws Exception {
@@ -109,5 +110,24 @@ public class ItemVendaDAO implements DAO<ItemVenda> {
         stmt.close();
         con.close();
         return lista;
+    }
+    
+    public ItemVenda getItemVenda(long id_venda, long id_produto) throws Exception {
+        String sql = String.format(connectionFactory.getSQLSelect(), 
+                "itemVenda WHERE id_venda = " + id_venda + " and id_produto = "+id_produto);
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ItemVenda iv = null;
+        if (rs.next()) {
+            iv = new ItemVenda();
+            iv.setId_venda(id_venda);
+            iv.setId_produto(id_produto);
+            iv.setQuantidade(rs.getInt("quantidade"));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return iv;
     }
 }
