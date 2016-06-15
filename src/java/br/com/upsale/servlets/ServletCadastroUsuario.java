@@ -36,7 +36,8 @@ public class ServletCadastroUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.setAttribute("redirect", "./");
         try {
             DAO<Usuario> dao = CreatorDAO.create(CreatorDAO.USUARIO);
             Usuario user = new Usuario();
@@ -44,17 +45,16 @@ public class ServletCadastroUsuario extends HttpServlet {
             user.setLogin(request.getParameter("login"));
             user.setSenha(request.getParameter("senha"));
             dao.inserir(user);
-           
-            HttpSession session = request.getSession();
+            
             session.setAttribute("nome", user.getNome());
             session.setAttribute("login", user.getLogin());
             session.setAttribute("id", user.getId());
-            response.sendRedirect("./");
+            session.setAttribute("msg", "Usuário cadastrado com sucesso!");
         } catch (Exception ex) {
             Logger.getLogger(ServletCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("./?error-cadastro");
+            session.setAttribute("msg", "Erro ao cadastrar usuário. Por favor tente novamente.");
         }
-
+        response.sendRedirect("./checagem.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

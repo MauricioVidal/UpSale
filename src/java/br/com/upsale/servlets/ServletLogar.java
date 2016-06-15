@@ -39,18 +39,20 @@ public class ServletLogar extends HttpServlet {
             String senha = request.getParameter("senha");
             UsuarioDAO dao = (UsuarioDAO) CreatorDAO.create(CreatorDAO.USUARIO);
             Usuario user = dao.autenticar(login, senha);
+            HttpSession session = request.getSession();
             if (user != null) {
-                HttpSession session = request.getSession();
                 session.setAttribute("nome", user.getNome());
                 session.setAttribute("login", user.getLogin());
                 session.setAttribute("id", user.getId());
-                response.sendRedirect("./?sucesso-login");
+                session.setAttribute("redirect", "./?sucesso-login");
+                session.setAttribute("msg", "Bem vindo, " + user.getNome() + "!");
+                response.sendRedirect("./checagem.jsp");
                 return;
             }
-            request.getSession().invalidate();
-            response.sendRedirect("./?error-login");
-
-            //session.setAttribute("login", );
+            //session.invalidate();
+            session.setAttribute("redirect", "./");
+            session.setAttribute("msg", "Erro: Usuário não cadastrado.");
+            response.sendRedirect("./checagem.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ServletLogar.class.getName()).log(Level.SEVERE, null, ex);
         }
