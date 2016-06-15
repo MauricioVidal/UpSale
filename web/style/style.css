@@ -15,10 +15,7 @@
 .csslider1 {
   display: inline-block;
   position: relative;
-  max-width: 1200px;
-  
-  
-
+  height: 460px;
   width: 100%;
 }
 .csslider1,
@@ -39,7 +36,7 @@
   line-height: 0;
   margin: 0 auto;
   padding: 0;
-  
+  height: 460px;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -49,13 +46,9 @@
   font-size: 0px;
   line-height: 0;
 }
-
 .csslider1 > ul > .slide.img img {
   width: 100%;
 }
-
-
-
 .csslider1 > ul > .slide.img a {
   font-size: 0pt;
   color: transparent;
@@ -231,7 +224,7 @@
   opacity: 0;
   z-index: 1;
   line-height: 0;
-  left: -80px;
+  left: -62.5px;
   top: -48px;
 }
 .csslider1 > .cs_bullets > label > .cs_thumb > img {
@@ -345,115 +338,72 @@
 /* ------------- /General Play Pause ------------- */
 
 /* ------------- Effect ------------- */
-.csslider1 > ul > .slide.num0 {
-  left: 0%;
-}
-.csslider1 > ul > .slide.num1 {
-  left: 100%;
-}
-.csslider1 > ul > .slide.num2 {
-  left: 200%;
-}
-.csslider1 > ul > .slide.num3 {
-  left: 300%;
-}
-.csslider1 > ul > .slide.num4 {
-  left: 400%;
-}
- 
 
-
-.csslider1 > #cs_slide1_0:checked ~ ul > .slide,
-.csslider1 > #cs_pause1_0:checked ~ ul > .slide {
-  -webkit-transform: translateX(0%);
-  transform: translateX(0%);
+.csslider1 > #cs_slide1_0:checked ~ ul > .slide.num0,
+.csslider1 > #cs_pause1_0:checked ~ ul > .slide.num0,
+.csslider1 > #cs_slide1_1:checked ~ ul > .slide.num1,
+.csslider1 > #cs_pause1_1:checked ~ ul > .slide.num1,
+.csslider1 > #cs_slide1_2:checked ~ ul > .slide.num2,
+.csslider1 > #cs_pause1_2:checked ~ ul > .slide.num2,
+.csslider1 > #cs_slide1_3:checked ~ ul > .slide.num3,
+.csslider1 > #cs_pause1_3:checked ~ ul > .slide.num3,
+.csslider1 > #cs_slide1_4:checked ~ ul > .slide.num4,
+.csslider1 > #cs_pause1_4:checked ~ ul > .slide.num4 {
+  opacity: 1;
+  z-index: 2;
 }
-.csslider1 > #cs_slide1_1:checked ~ ul > .slide,
-.csslider1 > #cs_pause1_1:checked ~ ul > .slide {
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-}
-.csslider1 > #cs_slide1_2:checked ~ ul > .slide,
-.csslider1 > #cs_pause1_2:checked ~ ul > .slide {
-  -webkit-transform: translateX(-200%);
-  transform: translateX(-200%);
-}
-.csslider1 > #cs_slide1_3:checked ~ ul > .slide,
-.csslider1 > #cs_pause1_3:checked ~ ul > .slide {
-  -webkit-transform: translateX(-300%);
-  transform: translateX(-300%);
-}
-.csslider1 > #cs_slide1_4:checked ~ ul > .slide,
-.csslider1 > #cs_pause1_4:checked ~ ul > .slide {
-  -webkit-transform: translateX(-400%);
-  transform: translateX(-400%);
-}
- 
-
 
 .csslider1 > ul > .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
   display: inline-block;
-  opacity: 1;
-
-  -webkit-transition: -webkit-transform 2000ms;
-  transition: -webkit-transform 2000ms, transform 2000ms;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  z-index: 1;
+  
+  -webkit-transition: opacity 2000ms ease;
+  transition: opacity 2000ms ease;
 
   
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 
-
-@-webkit-keyframes slide1 {
-  0%, 15%  { -webkit-transform: translateX(0%); transform: translateX(0%); }
-  20%, 35%  { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  40%, 55%  { -webkit-transform: translateX(-200%); transform: translateX(-200%); }
-  60%, 75%  { -webkit-transform: translateX(-300%); transform: translateX(-300%); }
-  80%, 95%  { -webkit-transform: translateX(-400%); transform: translateX(-400%); }
-  
+@-webkit-keyframes fade1 {
+  0%, 25%, 100%  { opacity: 0; }
+  5%, 20%  { opacity: 1; }
+  0%, 19.999%  { z-index: 2; }
+  20.001%, 100%  { z-index: 1; }
 }
-@keyframes slide1 {
-  0%, 15%  { -webkit-transform: translateX(0%); transform: translateX(0%); }
-  20%, 35%  { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  40%, 55%  { -webkit-transform: translateX(-200%); transform: translateX(-200%); }
-  60%, 75%  { -webkit-transform: translateX(-300%); transform: translateX(-300%); }
-  80%, 95%  { -webkit-transform: translateX(-400%); transform: translateX(-400%); }
-  
+@keyframes fade1 {
+  0%, 25%, 100%  { opacity: 0; }
+  5%, 20%  { opacity: 1; }
+  0%, 19.999%  { z-index: 2; }
+  20.001%, 100%  { z-index: 1; }
 }
 
-@-webkit-keyframes slide1-ie {
-  0%, 15%  { margin-left: 0%; }
-  20%, 35%  { margin-left: -100%; }
-  40%, 55%  { margin-left: -200%; }
-  60%, 75%  { margin-left: -300%; }
-  80%, 95%  { margin-left: -400%; }
-  
+.csslider1 > #cs_play1:checked ~ ul > .slide.num0 {
+  -webkit-animation: fade1 40000ms infinite -2000ms;
+  animation: fade1 40000ms infinite -2000ms;
 }
-@keyframes slide1-ie {
-  0%, 15%  { margin-left: 0%; }
-  20%, 35%  { margin-left: -100%; }
-  40%, 55%  { margin-left: -200%; }
-  60%, 75%  { margin-left: -300%; }
-  80%, 95%  { margin-left: -400%; }
-  
+.csslider1 > #cs_play1:checked ~ ul > .slide.num1 {
+  -webkit-animation: fade1 40000ms infinite 6000ms;
+  animation: fade1 40000ms infinite 6000ms;
+}
+.csslider1 > #cs_play1:checked ~ ul > .slide.num2 {
+  -webkit-animation: fade1 40000ms infinite 14000ms;
+  animation: fade1 40000ms infinite 14000ms;
+}
+.csslider1 > #cs_play1:checked ~ ul > .slide.num3 {
+  -webkit-animation: fade1 40000ms infinite 22000ms;
+  animation: fade1 40000ms infinite 22000ms;
+}
+.csslider1 > #cs_play1:checked ~ ul > .slide.num4 {
+  -webkit-animation: fade1 40000ms infinite 30000ms;
+  animation: fade1 40000ms infinite 30000ms;
 }
 
-.csslider1  > #cs_play1:checked ~ ul > .slide {
-  
-  -webkit-animation: slide1 40000ms infinite;
-  animation: slide1 40000ms infinite;
-  
-}
-/* IE 10+ hack - cant animate translate :( */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  .csslider1  > #cs_play1:checked ~ ul > .slide {
-    animation: slide1-ie 40000ms infinite;
-  }
-}
 
 
 .csslider1 > #cs_play1:checked ~ ul > .slide,
@@ -1237,5 +1187,12 @@ only screen and (                max-resolution: 2dppx)  and (max-width: 480px) 
   .csslider1 > .cs_description,
   .csslider1 > .cs_bullets {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .csslider1,
+  .csslider1 > ul {
+    height: auto;
   }
 }
