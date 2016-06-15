@@ -116,3 +116,14 @@ input{
 .titulo{
     background-color: #dddddd;
 }
+
+table{
+    margin: 3px auto;
+}
+
+table td{
+    padding: 5px 10px;
+    border: 1px solid black;
+    text-align: center;
+    
+}

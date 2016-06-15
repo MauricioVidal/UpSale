@@ -23,7 +23,7 @@
                 out.print("Selecione o estoque que deseja atualizar:<br/>"
                         + "<form action=\"./selecao_atualizacao_estoque\" method=\"POST\"><br/>"+
                         "<table>"
-                        + "<tr>    <td></td><td>Data Estoque</td><td>Produto</td><td>Preço</td>"
+                        + "<tr><td></td><td>Data Estoque</td><td>Produto</td><td>Preço</td>"
                         + "<td>Quantidade Disponível</td><td>Quantidade Máxima</td></tr>");
                 for (List<String> l : lista) {
                     String id = l.get(0)+"_"+l.get(1);
