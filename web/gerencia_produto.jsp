@@ -4,14 +4,13 @@
     Author     : Marcelo Bastos
 --%>
 <%@include file="header.jsp" %>
-<div class="container">
+    <div class="gerencia">    
         <h3>Gerência de Produtos</h3><br />
         Clique na opção desejada:<br />
         <a class="item" href="./cadastro_produto.jsp">Cadastro de Produtos </a><br />
         <a class="item" href="./selecao_atualizacao_produto.jsp">Atualização de Produtos </a><br />
-        <a class="item" href="./exclusao_produto.jsp">Exclusão de Produtos </a><br />
-        
-</div>
+        <a class="item" href="./exclusao_produto.jsp">Exclusão de Produtos </a><br />        
+    </div>
 
 <!-- TAG Conteudo-->
 </div>

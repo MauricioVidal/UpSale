@@ -7,12 +7,14 @@ and open the template in the editor.
     Created on : 02/06/2016, 13:56:59
     Author     : Mauricio R. Vidal
 */
+body{
+    background-image: url("fundo_site1.jpg");
+}
 
 img{
     width:100%;
 }
 #conteudo{
-
     width: 80%;
     margin: auto;
 }
@@ -20,7 +22,6 @@ img{
     width: 50%;
 }
 #button_menu{
-
     width: 49%;
 }
 #menu{
@@ -49,7 +50,7 @@ input{
     display: inline-block;
     color: black;
     text-align: center;
-    width: 30%;
+    width: 20%;
     border-radius: 20px;
 }
 
@@ -74,6 +75,10 @@ input{
 .inline{
     display: inline-block;
     font-size: large;
+}
+
+.slide{
+    padding: 5px;
 }
 
 .modal{
