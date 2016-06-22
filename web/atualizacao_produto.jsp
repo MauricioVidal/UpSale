@@ -11,48 +11,53 @@
 <%@page import="br.com.upsale.bd.DAO"%>
 <%@page import="br.com.upsale.bd.DAO"%>
 <%@include file="header.jsp" %>
+<%@include file="categoria.jsp" %>
+
 <div class="container">
     <div id="formulario">
         <h3>Atualizaçao de produtos</h3>
 
-        <%
-            ProdutoDAO dao = new ProdutoDAO();
+        <%            ProdutoDAO dao = new ProdutoDAO();
             Produto product = dao.getProduto((Long) session.getAttribute("id_produto"));
             if (product != null) {
                 DAO<Categoria> dao2 = CreatorDAO.create(CreatorDAO.CATEGORIA);
-                List<Categoria> lista2 = dao2.getLista();
-                out.print("<form action=\"./atualizacao_produto\" method=\"POST\">"
-                        + "<label>Categoria: </label><br/><br/>"
-                        + "<select name=\"categoria\">");
-                for (Categoria c : lista2) {
-                    String s = "";
-                    Long t = c.getId();
-                    if (c.getId() == product.getId_categoria()) {
-                        s = " selected";
+                List<Categoria> lista2 = dao2.getLista();%>
+        <label>Categoria: </label>
+        <button onclick="document.getElementById('categoria').style.display = 'block'" 
+                class="categoria_button">Mais sobre suas categorias</button>
+        <br/><br/>
+        <form action="./atualizacao_produto" method="POST">
+            <select name="categoria">
+                <%
+                        for (Categoria c : lista2) {
+                            String s = "";
+                            Long t = c.getId();
+                            if (c.getId() == product.getId_categoria()) {
+                                s = " selected";
+                            }
+                            out.print("<option value=\"" + c.getId() + "\"" + s
+                                    + ">" + c.getNome() + "</option>");
+                        }
+
+                        out.print("</select><br/><br/>"
+                                + "<label>Nome: </label><br/><br/>"
+                                + "<input type=\"text\" name=\"nome\" value=\'" + product.getNome() + "\'/><br/><br/>"
+                                + "<label>Descrição: </label><br/><br/>"
+                                + "<input type=\"text\" name=\"descricao\" value=\'" + product.getDescricao() + "\'/><br/><br/>"
+                                + "<label>Preço: </label><br/><br/>"
+                                + "<input type=\"text\" name=\"preco\" value=\'" + product.getPreco() + "\'/><br/><br/>"
+                                + "<input type=\"submit\" value=\"Atualizar Produto\"><br/>"
+                                + "</form>");
+                    } else {
+                        out.print("Produto não cadastrado.<br/>"
+                                + "Por favor tente novamente");
                     }
-                    out.print("<option value=\"" + c.getId() + "\"" + s
-                            +">" + c.getNome() + "</option>");
-                }
+                %>
 
-                out.print("</select><br/><br/>"
-                        + "<label>Nome: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"nome\" value=\'" + product.getNome() + "\'/><br/><br/>"
-                        + "<label>Descrição: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"descricao\" value=\'" + product.getDescricao() + "\'/><br/><br/>"
-                        + "<label>Preço: </label><br/><br/>"
-                        + "<input type=\"text\" name=\"preco\" value=\'" + product.getPreco() + "\'/><br/><br/>"
-                        + "<input type=\"submit\" value=\"Atualizar Produto\"><br/>"
-                        + "</form>");
-            } else {
-                out.print("Produto não cadastrado.<br/>"
-                        + "Por favor tente novamente");
-            }
-        %>
+                </div>
+                </div>
 
-    </div>
-</div>
-
-<!-- TAG Conteudo-->
-</div>
-</body>
-</html>
+                <!-- TAG Conteudo-->
+                </div>
+                </body>
+                </html>

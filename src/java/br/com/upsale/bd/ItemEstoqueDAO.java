@@ -104,14 +104,11 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
             List<String> l = new ArrayList<>();
             l.add(rs.getString("id_produto"));
             l.add(rs.getString("id_estoque"));
-            //l.add(rs.getString("data_estoque"));
             String date = rs.getString("data_estoque").substring(0, 7);
             String [] aux = date.split("-");
             l.add(aux[1]+"/"+aux[0]);
             l.add(rs.getString("nome_produto"));
             l.add(rs.getString("preco"));
-            //l.add(rs.getString("quantidade"));
-            //l.add(rs.getString("quantidade_maxima"));
             rs2.next();
             int te = rs2.getInt("percentual"); 
             l.add(te + "");            

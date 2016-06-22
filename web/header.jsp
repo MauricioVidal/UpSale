@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="br.com.upsale.bd.CategoriaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% boolean sessao_ativa = session.getAttribute("login") != null;
 %>
@@ -52,7 +54,8 @@
                                     <input type="submit" value="Logar"><br/>
                                 </form>
                             </div>
-
                         </div>
                     </div>
+ 
+                            
                 </div>

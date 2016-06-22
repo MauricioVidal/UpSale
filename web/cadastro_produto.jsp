@@ -9,15 +9,23 @@
 <%@page import="br.com.upsale.bd.DAO"%>
 <%@page import="br.com.upsale.bd.DAO"%>
 <%@include file="header.jsp" %>
+<%@include file="categoria.jsp" %>
+
 <div class="container">
     <div id="formulario">
         <h3>Cadastro de Produtos</h3>
+        <label>Categoria: </label>
+        <button onclick="document.getElementById('categoria').style.display = 'block'" 
+                class="categoria_button">Mais sobre suas categorias</button>
+        <br/><br/>
+
         <form action="./cadastro_produto" method="POST">
-            <label>Categoria: </label><br/><br/>
+
             <select name="categoria">
-                <% DAO<Categoria> dao = CreatorDAO.create(CreatorDAO.CATEGORIA);
+                <%
+                    DAO<Categoria> dao = CreatorDAO.create(CreatorDAO.CATEGORIA);
                     List<Categoria> lista = dao.getLista();
-                    for(Categoria c: lista) {
+                    for (Categoria c : lista) {
                         out.print("<option value=\"" + c.getId() + "\">" + c.getNome() + "</option>");
                     }
                 %>
