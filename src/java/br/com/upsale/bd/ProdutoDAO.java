@@ -87,6 +87,30 @@ public class ProdutoDAO implements DAO<Produto> {
         con.close();
         return rs; 
     }
+    
+        public List<String> getProdutoCategoria(long id_usuario, long id_produto) throws Exception {
+        String sql = String.format(connectionFactory.getSQLSelect(),
+                "produto_categoria WHERE id_usuario = " + id_usuario + " and id_produto = " + id_produto);
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        List<String> produto_categoria = null;
+        if (rs.next()) {
+            produto_categoria = new ArrayList();
+            
+            produto_categoria.add(rs.getString("id_produto"));
+            produto_categoria.add(rs.getString("id_categoria"));
+            produto_categoria.add(rs.getString("nome_produto"));
+            produto_categoria.add(rs.getString("nome_categoria"));
+            produto_categoria.add(rs.getString("descricao"));
+            produto_categoria.add(rs.getString("preco"));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return produto_categoria;
+    }
 
     public Produto getProduto(long id) throws Exception {
         String sql = String.format(connectionFactory.getSQLSelect(), 

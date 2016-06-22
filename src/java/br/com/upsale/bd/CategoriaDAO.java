@@ -78,5 +78,25 @@ public class CategoriaDAO implements DAO<Categoria> {
         return rs;
     
     }
+    
+    public List<List<String>> getProdutoEstoque(long id_usuario) throws Exception{
+        List<List<String>> lista = new ArrayList();
+        String sql = "Select nome, porcentagem_produto_categoria(nome, "+ id_usuario+ ") as percentual from categoria "
+                + "Having percentual <> 0";
+        Connection con = connectionFactory.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        String sql2 = new String();
+        while (rs.next()) {
+            List<String> l = new ArrayList<>();
+            l.add(rs.getString("nome"));          
+            l.add(rs.getString("percentual"));          
+            lista.add(l);
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
 
 }
