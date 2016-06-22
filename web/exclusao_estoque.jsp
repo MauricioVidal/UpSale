@@ -23,7 +23,7 @@
                         + "<form action=\"./exclusao_estoque\" method=\"POST\"><br/>"+
                         "<table>"
                         + "<tr>    <td></td><td>Data Estoque</td><td>Produto</td><td>Preço</td>"
-                        + "<td>Quantidade Disponível</td><td>Quantidade Máxima</td><td>Percentual no estoque (%)</td></tr>");
+                        + "<td>Percentual no estoque (%)</td></tr>");
                 for (List<String> l : lista) {
                     String id = l.get(0)+"_"+l.get(1);
                     out.print("<tr>"

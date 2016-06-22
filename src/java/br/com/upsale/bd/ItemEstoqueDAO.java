@@ -99,7 +99,7 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
         ResultSet rs = stmt.executeQuery(sql);
         String sql2 = new String();
         while (rs.next()) {  
-            sql2 = "select porcentagem_item_estoque("+ rs.getString("id_produto") + ", " + id_usuario + ")" + " as percentual";
+            sql2 = "select porcentagem_item_estoque("+ rs.getString("id_produto") + ", " + id_usuario + ", " + rs.getString("id_estoque") + ")" + " as percentual";
             ResultSet rs2 = stmt2.executeQuery(sql2);
             List<String> l = new ArrayList<>();
             l.add(rs.getString("id_produto"));
@@ -113,7 +113,8 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
             //l.add(rs.getString("quantidade"));
             //l.add(rs.getString("quantidade_maxima"));
             rs2.next();
-            l.add(rs2.getString("percentual"));            
+            int te = rs2.getInt("percentual"); 
+            l.add(te + "");            
             lista.add(l);
         }
         rs.close();
