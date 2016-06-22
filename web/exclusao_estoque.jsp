@@ -17,13 +17,13 @@
         <h3>Exclusão de estoques</h3>
         <%
             ItemEstoqueDAO dao = new ItemEstoqueDAO();
-            List<List<String>> lista = dao.getProdutoEstoque();
+            List<List<String>> lista = dao.getProdutoEstoque((Long)(session.getAttribute("id")));
             if (lista.size() != 0) {
                 out.print("Selecione o estoque que deseja excluir:<br/>"
                         + "<form action=\"./exclusao_estoque\" method=\"POST\"><br/>"+
                         "<table>"
                         + "<tr>    <td></td><td>Data Estoque</td><td>Produto</td><td>Preço</td>"
-                        + "<td>Quantidade Disponível</td><td>Quantidade Máxima</td></tr>");
+                        + "<td>Quantidade Disponível</td><td>Quantidade Máxima</td><td>Percentual no estoque (%)</td></tr>");
                 for (List<String> l : lista) {
                     String id = l.get(0)+"_"+l.get(1);
                     out.print("<tr>"

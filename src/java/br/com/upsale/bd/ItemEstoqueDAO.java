@@ -89,13 +89,18 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
         return rs;
     }
 
-    public List<List<String>> getProdutoEstoque() throws Exception{
+    public List<List<String>> getProdutoEstoque(long id_usuario) throws Exception{
         List<List<String>> lista = new ArrayList();
-        String sql = String.format(connectionFactory.getSQLSelect(), "produto_estoque");
+        String sql = String.format(connectionFactory.getSQLSelect(), "produto_estoque pe where pe.id_usuario = " + id_usuario);
         Connection con = connectionFactory.getConnection();
+        Connection con2 = connectionFactory.getConnection();
         Statement stmt = con.createStatement();
+        Statement stmt2 = con2.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()) {
+        String sql2 = new String();
+        while (rs.next()) {  
+            sql2 = "select porcentagem_item_estoque("+ rs.getString("id_produto") + ", " + id_usuario + ")" + " as percentual";
+            ResultSet rs2 = stmt2.executeQuery(sql2);
             List<String> l = new ArrayList<>();
             l.add(rs.getString("id_produto"));
             l.add(rs.getString("id_estoque"));
@@ -105,8 +110,10 @@ public class ItemEstoqueDAO implements DAO<ItemEstoque> {
             l.add(aux[1]+"/"+aux[0]);
             l.add(rs.getString("nome_produto"));
             l.add(rs.getString("preco"));
-            l.add(rs.getString("quantidade"));
-            l.add(rs.getString("quantidade_maxima"));
+            //l.add(rs.getString("quantidade"));
+            //l.add(rs.getString("quantidade_maxima"));
+            rs2.next();
+            l.add(rs2.getString("percentual"));            
             lista.add(l);
         }
         rs.close();
